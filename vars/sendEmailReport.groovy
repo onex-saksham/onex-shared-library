@@ -1,8 +1,4 @@
 def call(Map config = [:]) {
-
-    def recipient = config.get('to', 'saksham.jain@onextel.com')
-    def template = config.get('template', 'custom-report.template')
-
     echo "Sending email summary report from Shared Library..."
 
     emailext(

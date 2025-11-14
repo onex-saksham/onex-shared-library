@@ -1,11 +1,11 @@
-def call(Map config = [:]) {
-    echo "Sending email summary report from Shared Library..."
+def call(String recipients) {
+    echo "Sending email report to: ${recipients}"
 
     emailext(
-        to: recipient,
-        subject: "Jenkins Pipeline: ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
+        to: recipients,
+        subject: "Jenkins Build: ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
         body: '${SCRIPT, template="custom-report.template"}',
         mimeType: 'text/html',
-        verbose: false
+        attachLog: (currentBuild.currentResult != "SUCCESS")
     )
 }
